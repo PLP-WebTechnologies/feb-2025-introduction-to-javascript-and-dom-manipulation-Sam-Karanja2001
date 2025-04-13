@@ -25,39 +25,43 @@ Respond to user interactions.
 
 Happy Coding! 💻✨
 
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript and DOM Manipulation</title>
-    <link rel="stylesheet" href="style.css">
+    <title>JavaScript DOM Manipulation</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <header>
-        <h1>Welcome to the DOM Playground</h1>
+        <h1>DOM Manipulation Example</h1>
     </header>
 
     <main>
-        <p id="dynamicText">This is the initial text.</p>
+        <p id="dynamicParagraph">This is the initial text content.</p>
 
-        <button id="changeTextBtn">Change Text</button>
-        <button id="changeStyleBtn">Change Style</button>
-        <button id="addElementBtn">Add Element</button>
-        <div id="elementContainer">
-            </div>
+        <button id="changeTextButton">Change Text</button>
+        <button id="changeStyleButton">Change Style</button>
+        <button id="addElementButton">Add New Item</button>
+        <button id="removeElementButton">Remove Last Item</button>
+
+        <ul id="itemList">
+            <li>Item 1</li>
+            <li>Item 2</li>
+        </ul>
     </main>
 
     <footer>
-        <p>&copy; 2025 JavaScript DOM Manipulation</p>
+        <p>&copy; 2025 My DOM Playground</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
 
-/* style.css (Optional - for initial styling) */
+/* styles.css (Optional - for basic styling) */
 body {
     font-family: sans-serif;
     margin: 20px;
@@ -92,11 +96,15 @@ button:hover {
     background-color: #0056b3;
 }
 
-#elementContainer {
+#itemList {
     margin-top: 20px;
-    padding: 10px;
+    padding-left: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+#itemList li {
+    padding: 0.5em 0;
 }
 
 footer {
@@ -108,63 +116,49 @@ footer {
     border-radius: 5px;
 }
 
-
 // script.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Get references to the HTML elements we'll be manipulating
-    const dynamicTextElement = document.getElementById('dynamicText');
-    const changeTextButton = document.getElementById('changeTextBtn');
-    const changeStyleButton = document.getElementById('changeStyleBtn');
-    const addElementButton = document.getElementById('addElementBtn');
-    const elementContainer = document.getElementById('elementContainer');
-    let newElementCounter = 1;
+    const dynamicParagraph = document.getElementById('dynamicParagraph');
+    const changeTextButton = document.getElementById('changeTextButton');
+    const changeStyleButton = document.getElementById('changeStyleButton');
+    const addElementButton = document.getElementById('addElementButton');
+    const removeElementButton = document.getElementById('removeElementButton');
+    const itemList = document.getElementById('itemList');
 
-    // Function to change the text content
+    // Function to change text content
     function changeText() {
-        dynamicTextElement.textContent = 'The text has been dynamically changed by JavaScript!';
+        dynamicParagraph.textContent = 'The text has been updated by JavaScript!';
     }
 
-    // Function to change the CSS style
+    // Function to modify CSS styles
     function changeStyle() {
-        dynamicTextElement.style.color = 'green';
-        dynamicTextElement.style.fontWeight = 'bold';
-        dynamicTextElement.style.backgroundColor = '#e0ffe0';
-        dynamicTextElement.style.padding = '5px';
-        dynamicTextElement.style.borderRadius = '3px';
+        dynamicParagraph.style.color = 'green';
+        dynamicParagraph.style.fontWeight = 'bold';
+        dynamicParagraph.style.backgroundColor = '#e0ffe0';
+        dynamicParagraph.style.padding = '5px';
+        dynamicParagraph.style.borderRadius = '3px';
     }
 
-    // Function to add a new element
+    // Function to add a new element to the list
     function addElement() {
-        const newParagraph = document.createElement('p');
-        newParagraph.textContent = `New Paragraph Element #${newElementCounter}`;
-        newParagraph.classList.add('dynamic-paragraph'); // You can add classes for styling
-        elementContainer.appendChild(newParagraph);
-        newElementCounter++;
+        const newItem = document.createElement('li');
+        newItem.textContent = `New Item ${itemList.children.length + 1}`;
+        itemList.appendChild(newItem);
     }
 
-    // Function to remove the last added element
+    // Function to remove the last element from the list
     function removeElement() {
-        const lastParagraph = elementContainer.lastElementChild;
-        if (lastParagraph) {
-            elementContainer.removeChild(lastParagraph);
-            newElementCounter--;
+        if (itemList.lastElementChild) {
+            itemList.removeChild(itemList.lastElementChild);
         } else {
-            alert('No elements to remove!');
+            alert('No items to remove!');
         }
     }
 
-    // Add event listeners to the buttons
+    // Event listeners for the buttons
     changeTextButton.addEventListener('click', changeText);
     changeStyleButton.addEventListener('click', changeStyle);
     addElementButton.addEventListener('click', addElement);
-
-    // Add a "Remove Element" button dynamically
-    const removeElementButton = document.createElement('button');
-    removeElementButton.textContent = 'Remove Element';
-    removeElementButton.id = 'removeElementBtn';
-    main.appendChild(removeElementButton);
-
-    // Add event listener for the dynamically created remove button
     removeElementButton.addEventListener('click', removeElement);
 });
